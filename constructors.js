@@ -11,7 +11,7 @@ function LifeBeing (health, attack, range, attackDelay, missileSpeed, missileIma
 	this.CurAttackDelay = 0;
 	this.MaxAttackDelay = attackDelay;
 	this.MissileSpeed = missileSpeed;
-	this.MissileImage = fireBallImg;
+	this.MissileImage = missileImage;
 	this.SightRange = sightRange;
 	this.Speed = speed;
 	this.CurStep = 0;
@@ -41,7 +41,7 @@ LifeBeing.Mochi = function (party, position, rotation) {
 	var range = 200;
 	var attackDelay = 30;
 	var missileSpeed = 8;
-	var missileImage = null;
+	var missileImage = fireBallImg;
 	var sightRange = 250;
 	var speed = 4;
 	var stepCounter = 15;
