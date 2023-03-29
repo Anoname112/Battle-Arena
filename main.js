@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 var hidden;
-var music;
+var bgm;
 
 var minionSpawnTick;
 var player;
@@ -56,10 +56,10 @@ function initDocument() {
 	hidden = document.getElementById("hidden");
 	hidden.style.visibility = "hidden";
 	
-	// Prepare music
-	hidden.innerHTML += "<audio id=\"music\" autoplay><source src=\"resources/music.mp3\" /></audio>";
-	music = document.getElementById("music");
-	music.addEventListener('ended', function() {
+	// Prepare bgm
+	hidden.innerHTML += "<audio id=\"bgm\" autoplay><source src=\"resources/bgm.mp3\" /></audio>";
+	bgm = document.getElementById("bgm");
+	bgm.addEventListener('ended', function() {
 		this.currentTime = 0;
 		this.play();
 	}, false);
