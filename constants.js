@@ -14,6 +14,7 @@ const msgY = 15;
 const msgTextColor = "#000";
 const msgFont = "13px Consolas";
 
+const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
 const mapHeight = 726;
 const minionSpawnTime = 600;
