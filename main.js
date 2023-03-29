@@ -40,7 +40,7 @@ function initDocument() {
 	document.body.style.font = bodyFont;
 	
 	// Prepare canvas
-	canvas = document.getElementById("myCanvas");
+	canvas = getElement("myCanvas");
 	canvas.onmousedown = onMouseDown;
 	canvas.onmouseup = onMouseUp;
 	canvas.width = window.innerWidth;
@@ -53,12 +53,12 @@ function initDocument() {
 	ctx = canvas.getContext("2d");
 	
 	// Prepare hidden area
-	hidden = document.getElementById("hidden");
+	hidden = getElement("hidden");
 	hidden.style.visibility = "hidden";
 	
 	// Prepare bgm
 	hidden.innerHTML += "<audio id=\"bgm\" autoplay><source src=\"resources/bgm.mp3\" /></audio>";
-	bgm = document.getElementById("bgm");
+	bgm = getElement("bgm");
 	bgm.addEventListener('ended', function() {
 		this.currentTime = 0;
 		this.play();
