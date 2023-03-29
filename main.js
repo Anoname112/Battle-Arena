@@ -3,8 +3,6 @@ var ctx;
 var hidden;
 var music;
 
-var up = new Vec2(0, -1);
-
 var minionSpawnTick;
 var player;
 var tower0;
@@ -182,7 +180,7 @@ function timerTick() {
 		else {
 			// Move closer to target
 			projectiles[i].Position = projectiles[i].Position.subtract(distanceNormalized.scale(projectiles[i].Speed));
-			projectiles[i].Rotation = 180 + radianToDegree(computeRadian(up, distanceNormalized));
+			projectiles[i].Rotation = 180 + radianToDegree(computeRadian(upVec2, distanceNormalized));
 		}
 	}
 
@@ -212,7 +210,7 @@ function timerTick() {
 				}
 				else life.WalkTo = lifeCenter;
 				
-				life.Rotation = radianToDegree(computeRadian(up, distanceNormalized));
+				life.Rotation = radianToDegree(computeRadian(upVec2, distanceNormalized));
 			}
 		}
 		
@@ -234,7 +232,7 @@ function timerTick() {
 			}
 			
 			if (centerToDestLen > 0) {
-				life.Rotation = radianToDegree(computeRadian(up, centerToDestNormalized));
+				life.Rotation = radianToDegree(computeRadian(upVec2, centerToDestNormalized));
 			}
 			
 			// Find target
