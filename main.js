@@ -10,16 +10,13 @@ var tower1;
 var lifeBeings;
 var projectiles;
 
-start();
-
-function start () {
-	window.onload = init;
+window.onload = function () {
 	window.oncontextmenu = onContextMenu;
 	window.onresize = updateCanvasLocation;
+	window.onmousedown = onMouseDown;
+	window.onmouseup = onMouseUp;
 	window.onkeydown = onKeyDown;
-}
-
-function init () {
+	
 	initDocument();
 	initGame();
 	
@@ -42,14 +39,12 @@ function initDocument () {
 	
 	// Prepare canvas
 	canvas = getElement("myCanvas");
-	canvas.onmousedown = onMouseDown;
-	canvas.onmouseup = onMouseUp;
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
 	canvas.style.Position = canvasPosition;
 	canvas.style.borderRadius = canvasBorderRadius;
 	canvas.style.background = canvasBackColor;
 	canvas.style.cursor = canvasCursor;
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
 	updateCanvasLocation();
 	ctx = canvas.getContext("2d");
 	
