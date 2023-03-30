@@ -196,15 +196,17 @@ function timerTick () {
 			var distanceNormalized = distance.normalize();
 			
 			if (life.FindTarget && distanceLen > life.SightRange) {
+				// Target outside of sight range, find a new target
 				life.WalkTo = life.FinalDestination;
 				life.Target = null;
 			}
 			else {
+				// Target is inside sight range
 				if (distanceLen > life.Range) {
-					// Target is outside of attack range
+					// Target is outside of attack range, pursue the target
 					life.WalkTo = targetCenter;
 				}
-				else life.WalkTo = lifeCenter;
+				else life.WalkTo = lifeCenter;	// Target is inside attack range, stop to start attacking
 				
 				life.Rotation = radianToDegree(computeRadian(upVec2, distanceNormalized));
 			}
