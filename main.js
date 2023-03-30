@@ -188,7 +188,7 @@ function timerTick () {
 		// Attack delay
 		if (life.CurAttackDelay > 0) life.CurAttackDelay--;
 		
-		// If life being have target, then update movement
+		// If life have target, then update movement
 		if (life.Target) {
 			var targetCenter = getCenter(life.Target);
 			var distance = targetCenter.subtract(lifeCenter);
@@ -206,7 +206,10 @@ function timerTick () {
 					// Target is outside of attack range, pursue the target
 					life.WalkTo = targetCenter;
 				}
-				else life.WalkTo = lifeCenter;	// Target is inside attack range, stop to start attacking
+				else {
+					// Target is inside attack range, stop to start attacking
+					life.WalkTo = lifeCenter;
+				}
 				
 				life.Rotation = radianToDegree(computeRadian(upVec2, distanceNormalized));
 			}
@@ -229,6 +232,7 @@ function timerTick () {
 				life.CurStep = 0;
 			}
 			
+			// If there is movement, update life rotation
 			if (centerToDestLen > 0) {
 				life.Rotation = radianToDegree(computeRadian(upVec2, centerToDestNormalized));
 			}
