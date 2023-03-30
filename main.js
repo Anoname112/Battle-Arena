@@ -12,14 +12,14 @@ var projectiles;
 
 start();
 
-function start() {
+function start () {
 	window.onload = init;
 	window.oncontextmenu = onContextMenu;
 	window.onresize = updateCanvasLocation;
 	window.onkeydown = onKeyDown;
 }
 
-function init() {
+function init () {
 	initDocument();
 	initGame();
 	
@@ -33,7 +33,7 @@ function init() {
 	}
 }
 
-function initDocument() {
+function initDocument () {
 	// Prepare body
 	document.body.style.margin = bodyMargin;
 	document.body.style.background = bodyBackColor;
@@ -66,7 +66,7 @@ function initDocument() {
 	}, false);
 }
 
-function initGame() {
+function initGame () {
 	lifeBeings = [];
 	projectiles = [];
 	
@@ -84,13 +84,13 @@ function initGame() {
 	genMinionWave();
 }
 
-function onContextMenu(e) {
+function onContextMenu (e) {
 	e.preventDefault();
 	
 	// DO SOMETHING HERE
 }
 
-function onKeyDown(e) {
+function onKeyDown (e) {
 	var key = e.keyCode;
 	switch (key) {
 		case 65:	// A
@@ -107,7 +107,7 @@ function onKeyDown(e) {
 	}
 }
 
-function onMouseDown(e) {
+function onMouseDown (e) {
 	var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
 	var boundingRect = canvas.getBoundingClientRect();
 	var mousePosition = (new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top)).add(player.Position).subtract(playerPos);
@@ -141,11 +141,11 @@ function onMouseDown(e) {
 	canvas.style.cursor = canvasCursor;
 }
 
-function onMouseUp(e) {
+function onMouseUp (e) {
 
 }
 
-function timerTick() {
+function timerTick () {
 	if (minionSpawnTick > 0) minionSpawnTick--;
 	else genMinionWave();
 	
