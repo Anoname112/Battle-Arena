@@ -35,6 +35,7 @@ function init() {
 
 function initDocument() {
 	// Prepare body
+	document.body.style.margin = bodyMargin;
 	document.body.style.background = bodyBackColor;
 	document.body.style.color = bodyTextColor;
 	document.body.style.font = bodyFont;
