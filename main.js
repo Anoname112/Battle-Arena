@@ -137,7 +137,7 @@ function onMouseDown (e) {
 }
 
 function onMouseUp (e) {
-
+	e.preventDefault();
 }
 
 function timerTick () {
