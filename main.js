@@ -126,7 +126,6 @@ function onMouseDown (e) {
 		}
 	}
 	
-	var playerCenter = getCenter(player);
 	if (player.Target == null) {
 		player.WalkTo = new Vec2(mousePosition.X, mousePosition.Y);
 		
