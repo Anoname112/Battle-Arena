@@ -17,6 +17,7 @@ const msgTextColor = "#000000";
 const msgFontSize = 13;
 const msgFont = msgFontSize + "px Consolas";
 
+const cameraSpeed = 20;
 const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
 const mapHeight = 726;
