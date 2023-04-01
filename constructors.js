@@ -4,9 +4,10 @@ function Background (image, position, z) {
 	this.Z = (z == null) ? backgroundZIndex : z;
 }
 
-function Camera (position, z) {
+function Camera (position, z, speed) {
 	this.Position = position;
 	this.Z = (z == null) ? 1 : z;
+	this.Speed = (speed == null) ? cameraSpeed : speed;
 }
 
 function LifeBeing (health, attack, range, attackDelay, missileSpeed, missileImage, sightRange, speed, stepCounter, walkImages, attackImages, party, position, rotation) {
