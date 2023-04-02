@@ -3,7 +3,9 @@ var ctx;
 var hidden;
 var bgm;
 
+var gState;
 var minionSpawnTick;
+
 var player;
 var tower0;
 var tower1;
@@ -169,6 +171,13 @@ function timerTick () {
 				
 				// Remove killed target from life beings array
 				for (var j = 0; j < lifeBeings.length; j++) {
+					if (lifeBeings[j] == player || lifeBeings[j] == tower0) {
+						// Lose
+					}
+					else if (lifeBeings[j] == tower1) {
+						// Win	
+					}
+					
 					if (lifeBeings[j] == target) lifeBeings.splice(j, 1);
 				}
 			}
