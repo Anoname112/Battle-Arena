@@ -299,7 +299,9 @@ function timerTick () {
 		var projected2 = playerPos.add(point2).subtract(player.Position);
 		var projected3 = playerPos.add(point3).subtract(player.Position);
 		drawLine(projected1.X, projected1.Y, projected2.X, projected2.Y);
+		drawLine(projected1.X, projected1.Y + 1, projected2.X, projected2.Y + 1);
 		drawLine(projected1.X, projected1.Y, projected3.X, projected3.Y, hpBarColor[life.Party]);
+		drawLine(projected1.X, projected1.Y + 1, projected3.X, projected3.Y + 1, hpBarColor[life.Party]);
 	}
 	
 	// Draw projectiles
