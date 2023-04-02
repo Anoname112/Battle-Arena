@@ -3,6 +3,10 @@ var ctx;
 var hidden;
 var bgm;
 
+// 0. Paused
+// 1. Playing
+// 2. Win
+// 3. Lose
 var gState;
 var minionSpawnTick;
 
@@ -173,9 +177,11 @@ function timerTick () {
 				for (var j = 0; j < lifeBeings.length; j++) {
 					if (lifeBeings[j] == player || lifeBeings[j] == tower0) {
 						// Lose
+						gState = 3;
 					}
 					else if (lifeBeings[j] == tower1) {
-						// Win	
+						// Win
+						gState = 2;
 					}
 					
 					if (lifeBeings[j] == target) lifeBeings.splice(j, 1);
