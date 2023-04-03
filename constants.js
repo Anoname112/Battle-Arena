@@ -22,6 +22,7 @@ const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
 const mapHeight = 726;
 const minionSpawnTime = 600;
+const hpBarHeight = 2;
 const hpBarDistance = 10;
 const hpBarColor = {
 	0: "#00FF00",

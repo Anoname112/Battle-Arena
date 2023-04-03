@@ -322,10 +322,10 @@ function timerTick () {
 		var projected1 = playerPos.add(point1).subtract(player.Position);
 		var projected2 = playerPos.add(point2).subtract(player.Position);
 		var projected3 = playerPos.add(point3).subtract(player.Position);
-		drawLine(projected1.X, projected1.Y, projected2.X, projected2.Y);
-		drawLine(projected1.X, projected1.Y + 1, projected2.X, projected2.Y + 1);
-		drawLine(projected1.X, projected1.Y, projected3.X, projected3.Y, hpBarColor[life.Party]);
-		drawLine(projected1.X, projected1.Y + 1, projected3.X, projected3.Y + 1, hpBarColor[life.Party]);
+		for (var j = 0; j < 2; j++) {
+			drawLine(projected1.X, projected1.Y + j, projected2.X, projected2.Y + j);
+			drawLine(projected1.X, projected1.Y + j, projected3.X, projected3.Y + j, hpBarColor[life.Party]);
+		}
 	}
 	
 	// Draw projectiles
@@ -335,6 +335,6 @@ function timerTick () {
 	if (gState == 0) drawMessage("Paused", msgPos.X, msgPos.Y, "center");
 	else if (gState == 2) drawMessgae("You Win", msgPos.X, msgPos.Y, "center");
 	else if (gState == 3) drawMessgae("You Lose", msgPos.X, msgPos.Y, "center");
-	
+
 	requestAnimationFrame(timerTick);
 }
