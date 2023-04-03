@@ -182,17 +182,12 @@ function timerTick () {
 					
 					// Remove killed target from life beings array
 					for (var j = 0; j < lifeBeings.length; j++) {
-						if (lifeBeings[j] == player || lifeBeings[j] == tower0) {
-							// Lose
-							gState = 3;
-						}
-						else if (lifeBeings[j] == tower1) {
-							// Win
-							gState = 2;
-						}
-						
 						if (lifeBeings[j] == target) lifeBeings.splice(j, 1);
 					}
+					
+					// Check win lose conditions
+					if (target == player || target == tower0) gState = 3;
+					else if (target == tower1) gState = 2;
 				}
 			}
 			else {
