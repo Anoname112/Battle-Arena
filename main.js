@@ -70,7 +70,7 @@ function initDocument () {
 function initGame () {
 	lifeBeings = [];
 	projectiles = [];
-	
+
 	player = new LifeBeing.Mochi(0, new Vec2((mapWidth - mochiWalkImg1.width) / 2, mapHeight - mapHeight / 7), 0);
 	lifeBeings.push(player);
 	
@@ -83,6 +83,8 @@ function initGame () {
 	lifeBeings.push(tower1);
 	
 	genMinionWave();
+	
+	gState == 1;
 }
 
 function onContextMenu (e) {
