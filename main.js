@@ -84,7 +84,7 @@ function initGame () {
 	
 	genMinionWave();
 
-	gState == 1;
+	gState = 1;
 }
 
 function onContextMenu (e) {
