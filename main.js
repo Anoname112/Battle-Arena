@@ -83,7 +83,7 @@ function initGame () {
 	lifeBeings.push(tower1);
 	
 	genMinionWave();
-	
+
 	gState == 1;
 }
 
@@ -98,6 +98,10 @@ function onKeyDown (e) {
 	switch (key) {
 		case 65:	// A
 			canvas.style.cursor = (canvas.style.cursor == canvasCursor) ? canvasCursorAttack : canvasCursor;
+			break;
+		case 80:
+			if (gState == 0) resume();
+			else if (gState == 1) pause();
 			break;
 		case 82:	// R
 			initGame();
