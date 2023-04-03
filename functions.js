@@ -124,7 +124,7 @@ function drawRect (x, y, w, h, s) {
 function drawMessage (msg, x, y, align) {
 	ctx.textAlign = (align == null) ? "start" : align;
 	ctx.font = msgFont;
-	ctx.fillStyle = msgTextColor;
+	ctx.fillStyle = msgFontColor;
 	ctx.fillText(msg, x, y + 12);
 	ctx.textAlign = "start";
 }
