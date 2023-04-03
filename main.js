@@ -303,6 +303,7 @@ function timerTick () {
 	// Invalidate
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
+	var msgPos = new Vec2(canvas.width / 2, msgY);
 	var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
 	
 	// Draw life beings
@@ -331,7 +332,9 @@ function timerTick () {
 	for (var i = 0; i < projectiles.length; i++) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
 	
 	// Draw game state messages
-	if (gState == 1) 
-
+	if (gState == 0) drawMessage("Paused", msgPos.X, msgPos.Y, "center");
+	else if (gState == 2) drawMessgae("You Win", msgPos.X, msgPos.Y, "center");
+	else if (gState == 3) drawMessgae("You Lose", msgPos.X, msgPos.Y, "center");
+	
 	requestAnimationFrame(timerTick);
 }
