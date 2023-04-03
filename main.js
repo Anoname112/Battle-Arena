@@ -45,7 +45,7 @@ function initDocument () {
 	
 	// Prepare canvas
 	canvas = getElement("myCanvas");
-	canvas.style.Position = canvasPosition;
+	canvas.style.position = canvasPosition;
 	canvas.style.borderRadius = canvasBorderRadius;
 	canvas.style.background = canvasBackColor;
 	canvas.style.cursor = canvasCursor;
