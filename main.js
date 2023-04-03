@@ -322,7 +322,7 @@ function timerTick () {
 		var projected1 = playerPos.add(point1).subtract(player.Position);
 		var projected2 = playerPos.add(point2).subtract(player.Position);
 		var projected3 = playerPos.add(point3).subtract(player.Position);
-		for (var j = 0; j < 2; j++) {
+		for (var j = 0; j < hpBarHeight; j++) {
 			drawLine(projected1.X, projected1.Y + j, projected2.X, projected2.Y + j);
 			drawLine(projected1.X, projected1.Y + j, projected3.X, projected3.Y + j, hpBarColor[life.Party]);
 		}
@@ -332,9 +332,9 @@ function timerTick () {
 	for (var i = 0; i < projectiles.length; i++) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
 	
 	// Draw game state messages
-	if (gState == 0) drawMessage("Paused", msgPos.X, msgPos.Y, "center");
-	else if (gState == 2) drawMessgae("You Win", msgPos.X, msgPos.Y, "center");
-	else if (gState == 3) drawMessgae("You Lose", msgPos.X, msgPos.Y, "center");
+	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, "center");
+	else if (gState == 2) drawMessgae("YOU WIN", msgPos.X, msgPos.Y, "center");
+	else if (gState == 3) drawMessgae("YOU LOSE", msgPos.X, msgPos.Y, "center");
 
 	requestAnimationFrame(timerTick);
 }
