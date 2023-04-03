@@ -147,151 +147,153 @@ function onMouseUp (e) {
 }
 
 function timerTick () {
-	if (minionSpawnTick > 0) minionSpawnTick--;
-	else genMinionWave();
-	
-	// Move projectiles
-	for (var i = 0; i < projectiles.length; i++) {
-		var proCenter = getCenter(projectiles[i]);
-		var targetCenter = getCenter(projectiles[i].Target);
-		var distance = proCenter.subtract(targetCenter);
-		var distanceLen = distance.length();
-		var distanceNormalized = distance.normalize();
+	if (gState == 1) {
+		if (minionSpawnTick > 0) minionSpawnTick--;
+		else genMinionWave();
 		
-		if (distanceLen <= projectiles[i].Speed) {
-			// Hit the target
-			var target = projectiles[i].Target;
-			target.CurHealth -= projectiles[i].Attack;
-			projectiles.splice(i, 1);
+		// Move projectiles
+		for (var i = 0; i < projectiles.length; i++) {
+			var proCenter = getCenter(projectiles[i]);
+			var targetCenter = getCenter(projectiles[i].Target);
+			var distance = proCenter.subtract(targetCenter);
+			var distanceLen = distance.length();
+			var distanceNormalized = distance.normalize();
 			
-			if (target.CurHealth <= 0) {
-				// Remove killed target from other life beings target
-				for (var j = 0; j < lifeBeings.length; j++) {
-					if (lifeBeings[j].Target == target) {
-						lifeBeings[j].Target = null;
-						if (lifeBeings[j].FindTarget) lifeBeings[j].WalkTo = lifeBeings[j].FinalDestination;
-					}
-				}
+			if (distanceLen <= projectiles[i].Speed) {
+				// Hit the target
+				var target = projectiles[i].Target;
+				target.CurHealth -= projectiles[i].Attack;
+				projectiles.splice(i, 1);
 				
-				// Remove killed target from life beings array
-				for (var j = 0; j < lifeBeings.length; j++) {
-					if (lifeBeings[j] == player || lifeBeings[j] == tower0) {
-						// Lose
-						gState = 3;
-					}
-					else if (lifeBeings[j] == tower1) {
-						// Win
-						gState = 2;
+				if (target.CurHealth <= 0) {
+					// Remove killed target from other life beings target
+					for (var j = 0; j < lifeBeings.length; j++) {
+						if (lifeBeings[j].Target == target) {
+							lifeBeings[j].Target = null;
+							if (lifeBeings[j].FindTarget) lifeBeings[j].WalkTo = lifeBeings[j].FinalDestination;
+						}
 					}
 					
-					if (lifeBeings[j] == target) lifeBeings.splice(j, 1);
+					// Remove killed target from life beings array
+					for (var j = 0; j < lifeBeings.length; j++) {
+						if (lifeBeings[j] == player || lifeBeings[j] == tower0) {
+							// Lose
+							gState = 3;
+						}
+						else if (lifeBeings[j] == tower1) {
+							// Win
+							gState = 2;
+						}
+						
+						if (lifeBeings[j] == target) lifeBeings.splice(j, 1);
+					}
 				}
 			}
+			else {
+				// Move closer to target
+				projectiles[i].Position = projectiles[i].Position.subtract(distanceNormalized.scale(projectiles[i].Speed));
+				projectiles[i].Rotation = 180 + radianToDegree(computeRadian(upVec2, distanceNormalized));
+			}
 		}
-		else {
-			// Move closer to target
-			projectiles[i].Position = projectiles[i].Position.subtract(distanceNormalized.scale(projectiles[i].Speed));
-			projectiles[i].Rotation = 180 + radianToDegree(computeRadian(upVec2, distanceNormalized));
+
+		// Life beings
+		for (var i = 0; i < lifeBeings.length; i++) {
+			var life = lifeBeings[i];
+			var lifeCenter = getCenter(life);
+			
+			// Attack delay
+			if (life.CurAttackDelay > 0) life.CurAttackDelay--;
+			
+			// If life have target, then update movement
+			if (life.Target) {
+				var targetCenter = getCenter(life.Target);
+				var distance = targetCenter.subtract(lifeCenter);
+				var distanceLen = distance.length();
+				var distanceNormalized = distance.normalize();
+				
+				if (life.FindTarget && distanceLen > life.SightRange) {
+					// Target outside of sight range, find a new target
+					life.WalkTo = life.FinalDestination;
+					life.Target = null;
+				}
+				else {
+					// Target is inside sight range
+					if (distanceLen > life.Range) {
+						// Target is outside of attack range, pursue the target
+						life.WalkTo = targetCenter;
+					}
+					else {
+						// Target is inside attack range, stop to start attacking
+						life.WalkTo = lifeCenter;
+					}
+					
+					life.Rotation = radianToDegree(computeRadian(upVec2, distanceNormalized));
+				}
+			}
+			
+			// Move life being
+			if (life.CurAttackDelay < life.MaxAttackDelay / 2) {
+				var centerToDest = life.WalkTo.subtract(lifeCenter);
+				var centerToDestLen = centerToDest.length();
+				var centerToDestNormalized = centerToDest.normalize();
+				if (centerToDestLen > life.Speed) {
+					// Not arrived after moving
+					life.Position = life.Position.add(centerToDestNormalized.scale(life.Speed));
+					life.CurStep++;
+					if (life.CurStep >= life.MaxStep) life.CurStep = 0;
+				}
+				else {
+					// Arrived after moving
+					life.Position = life.Position.add(centerToDest);
+					life.CurStep = 0;
+				}
+				
+				// If there is movement, update life rotation
+				if (centerToDestLen > 0) {
+					life.Rotation = radianToDegree(computeRadian(upVec2, centerToDestNormalized));
+				}
+				
+				// Find target
+				if (life.Target == null && life.FindTarget) {
+					var closestDistance = life.SightRange;
+					for (var j = 0; j < lifeBeings.length; j++) {
+						var lifeX = lifeBeings[j];
+						if (lifeX.Party != life.Party) {
+							var lifeXCenter = getCenter(lifeX);
+							var distance = lifeXCenter.subtract(lifeCenter);
+							var distanceLen = distance.length();
+							
+							if (distanceLen <= closestDistance) {
+								closestDistance = distanceLen;
+								life.Target = lifeX;
+							}
+						}
+					}
+					
+					if (life.Target) life.FinalDestination = life.WalkTo;
+				}
+			}
+			
+			// Life being attack
+			if (life.Target) {
+				var targetCenter = getCenter(life.Target);
+				var distance = targetCenter.subtract(lifeCenter);
+				var distanceLen = distance.length();
+				var distanceNormalized = distance.normalize();
+				
+				if (distanceLen <= life.Range) {
+					if (life.CurAttackDelay == 0) {
+						var missilePosition = lifeCenter.add(distanceNormalized.scale(life.Image.height / 2)).subtract(new Vec2(life.MissileImage.width / 2, life.MissileImage.height / 2));
+						projectiles.push(new Projectile(life.Target, life.Attack, life.MissileSpeed, life.MissileImage, missilePosition, life.Rotation));
+						life.CurAttackDelay = life.MaxAttackDelay;
+					}
+				}
+			}
+			
+			updateImage(life);
 		}
 	}
 
-	// Life beings
-	for (var i = 0; i < lifeBeings.length; i++) {
-		var life = lifeBeings[i];
-		var lifeCenter = getCenter(life);
-		
-		// Attack delay
-		if (life.CurAttackDelay > 0) life.CurAttackDelay--;
-		
-		// If life have target, then update movement
-		if (life.Target) {
-			var targetCenter = getCenter(life.Target);
-			var distance = targetCenter.subtract(lifeCenter);
-			var distanceLen = distance.length();
-			var distanceNormalized = distance.normalize();
-			
-			if (life.FindTarget && distanceLen > life.SightRange) {
-				// Target outside of sight range, find a new target
-				life.WalkTo = life.FinalDestination;
-				life.Target = null;
-			}
-			else {
-				// Target is inside sight range
-				if (distanceLen > life.Range) {
-					// Target is outside of attack range, pursue the target
-					life.WalkTo = targetCenter;
-				}
-				else {
-					// Target is inside attack range, stop to start attacking
-					life.WalkTo = lifeCenter;
-				}
-				
-				life.Rotation = radianToDegree(computeRadian(upVec2, distanceNormalized));
-			}
-		}
-		
-		// Move life being
-		if (life.CurAttackDelay < life.MaxAttackDelay / 2) {
-			var centerToDest = life.WalkTo.subtract(lifeCenter);
-			var centerToDestLen = centerToDest.length();
-			var centerToDestNormalized = centerToDest.normalize();
-			if (centerToDestLen > life.Speed) {
-				// Not arrived after moving
-				life.Position = life.Position.add(centerToDestNormalized.scale(life.Speed));
-				life.CurStep++;
-				if (life.CurStep >= life.MaxStep) life.CurStep = 0;
-			}
-			else {
-				// Arrived after moving
-				life.Position = life.Position.add(centerToDest);
-				life.CurStep = 0;
-			}
-			
-			// If there is movement, update life rotation
-			if (centerToDestLen > 0) {
-				life.Rotation = radianToDegree(computeRadian(upVec2, centerToDestNormalized));
-			}
-			
-			// Find target
-			if (life.Target == null && life.FindTarget) {
-				var closestDistance = life.SightRange;
-				for (var j = 0; j < lifeBeings.length; j++) {
-					var lifeX = lifeBeings[j];
-					if (lifeX.Party != life.Party) {
-						var lifeXCenter = getCenter(lifeX);
-						var distance = lifeXCenter.subtract(lifeCenter);
-						var distanceLen = distance.length();
-						
-						if (distanceLen <= closestDistance) {
-							closestDistance = distanceLen;
-							life.Target = lifeX;
-						}
-					}
-				}
-				
-				if (life.Target) life.FinalDestination = life.WalkTo;
-			}
-		}
-		
-		// Life being attack
-		if (life.Target) {
-			var targetCenter = getCenter(life.Target);
-			var distance = targetCenter.subtract(lifeCenter);
-			var distanceLen = distance.length();
-			var distanceNormalized = distance.normalize();
-			
-			if (distanceLen <= life.Range) {
-				if (life.CurAttackDelay == 0) {
-					var missilePosition = lifeCenter.add(distanceNormalized.scale(life.Image.height / 2)).subtract(new Vec2(life.MissileImage.width / 2, life.MissileImage.height / 2));
-					projectiles.push(new Projectile(life.Target, life.Attack, life.MissileSpeed, life.MissileImage, missilePosition, life.Rotation));
-					life.CurAttackDelay = life.MaxAttackDelay;
-				}
-			}
-		}
-		
-		updateImage(life);
-	}
-	
 	// Invalidate
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
@@ -322,5 +324,8 @@ function timerTick () {
 	// Draw projectiles
 	for (var i = 0; i < projectiles.length; i++) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
 	
+	// Draw game state messages
+	if (gState == 1) 
+
 	requestAnimationFrame(timerTick);
 }

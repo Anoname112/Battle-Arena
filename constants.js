@@ -3,7 +3,7 @@ const isPortrait = window.innerWidth < window.innerHeight;
 
 const bodyMargin = "0";
 const bodyBackColor = "transparent";
-const bodyTextColor = "#000000";
+const bodyFontColor = "#000000";
 const bodyFontSize = 15;
 const bodyFont = bodyFontSize + "px Segoe UI";
 const canvasBorderRadius = 0;
@@ -13,7 +13,7 @@ const canvasCursor = "pointer";
 const canvasCursorAttack = "crosshair";
 const audioVisibility = "hidden";
 const msgY = 15;
-const msgTextColor = "#FFFFFF";
+const msgFontColor = "#FFFFFF";
 const msgFontSize = 13;
 const msgFont = msgFontSize + "px Consolas";
 
