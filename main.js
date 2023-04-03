@@ -99,7 +99,7 @@ function onKeyDown (e) {
 		case 65:	// A
 			canvas.style.cursor = (canvas.style.cursor == canvasCursor) ? canvasCursorAttack : canvasCursor;
 			break;
-		case 80:
+		case 80:	// P
 			if (gState == 0) resume();
 			else if (gState == 1) pause();
 			break;
