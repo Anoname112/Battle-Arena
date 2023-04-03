@@ -13,7 +13,7 @@ const canvasCursor = "pointer";
 const canvasCursorAttack = "crosshair";
 const audioVisibility = "hidden";
 const msgY = 15;
-const msgTextColor = "#000000";
+const msgTextColor = "#FFFFFF";
 const msgFontSize = 13;
 const msgFont = msgFontSize + "px Consolas";
 
