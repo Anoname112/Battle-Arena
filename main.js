@@ -61,7 +61,7 @@ function initDocument () {
 	// Prepare bgm
 	hidden.innerHTML += "<audio id=\"bgm\" autoplay><source src=\"resources/bgm.mp3\" /></audio>";
 	bgm = getElement("bgm");
-	bgm.addEventListener('ended', function() {
+	bgm.addEventListener('ended', function () {
 		this.currentTime = 0;
 		this.play();
 	}, false);
