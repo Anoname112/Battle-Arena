@@ -9,6 +9,7 @@ var bgm;
 // 3. Lose
 var gState;
 var minionSpawnTick;
+var camera;
 
 var player;
 var tower0;
@@ -85,6 +86,7 @@ function initGame () {
 	genMinionWave();
 
 	gState = 1;
+	camera = new Camera (new Vec2.Zero);
 }
 
 function onContextMenu (e) {
@@ -98,6 +100,8 @@ function onKeyDown (e) {
 	switch (key) {
 		case 65:	// A
 			canvas.style.cursor = (canvas.style.cursor == canvasCursor) ? canvasCursorAttack : canvasCursor;
+			break;
+		case 67:	// C
 			break;
 		case 80:	// P
 			if (gState == 0) resume();
