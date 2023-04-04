@@ -1,5 +1,6 @@
 var canvas;
 var ctx;
+var infoSvg;
 var hidden;
 var bgm;
 
@@ -54,6 +55,18 @@ function initDocument () {
 	canvas.height = window.innerHeight;
 	updateCanvasLocation();
 	ctx = canvas.getContext("2d");
+	
+	// Prepare controls
+	infoSvg = getElement("infoSvg");
+	infoSvg.addEventListener("touchstart", infoTouchStart, false);
+	infoSvg.addEventListener("touchend", infoTouchEnd, false);
+	infoSvg.onmousedown = infoTouchStart;
+	infoSvg.onmouseup = infoTouchEnd;
+	infoSvg.style.position = "fixed";
+	infoSvg.style.top = controlPadding;
+	infoSvg.style.right = controlPadding;
+	infoSvg.children[0].style.width = controlSize;
+	infoSvg.children[0].style.height = controlSize;
 	
 	// Prepare hidden area
 	hidden = getElement("hidden");
@@ -128,7 +141,7 @@ function onMouseDown (e) {
 		mousePosition = (new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top)).add(player.Position).subtract(playerPos);
 	}
 	else mousePosition = (new Vec2(e.clientX, e.clientY)).add(camera.Position);
-
+	
 	// Reset action
 	player.stop();
 	
@@ -158,7 +171,15 @@ function onMouseDown (e) {
 }
 
 function onMouseUp (e) {
+	
+}
 
+function infoTouchStart (e) {
+	
+}
+
+function infoTouchEnd (e) {
+	
 }
 
 function timerTick () {
