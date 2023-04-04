@@ -22,7 +22,7 @@ const msgBackPadding = 5;
 const msgBackRadius = 5;
 const msgBackColor = "#222222";
 
-const interval = 10;
+const interval = 15;
 const cameraSpeed = 20;
 const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
