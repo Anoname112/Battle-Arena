@@ -121,14 +121,13 @@ function onKeyDown (e) {
 }
 
 function onMouseDown (e) {
-	var boundingRect = canvas.getBoundingClientRect();
-	var clientPos = new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top);
 	var mousePosition;
 	if (camera.Follow) {
 		var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
-		mousePosition = clientPos.add(player.Position).subtract(playerPos);
+		var boundingRect = canvas.getBoundingClientRect();
+		mousePosition = (new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top)).add(player.Position).subtract(playerPos);
 	}
-	else mousePosition = (new Vec2(e.clientX, e.clientY)).subtract(camera.Position);
+	else mousePosition = (new Vec2(e.clientX, e.clientY)).add(camera.Position);
 
 	// Reset action
 	player.stop();
