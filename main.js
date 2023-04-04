@@ -184,7 +184,7 @@ function infoTouchEnd (e) {
 }
 
 function infoClick (e) {
-	alert("Controls:\n[ A ] Find a target while walking\n[ S ] Stop player\n[ C ] Toggle camera follow\n[ P ] Pause or resume game\n[ R ] Reset game");
+	alert("Controls:\n[ A ] Find a target while walking\n[ S ] Stop player\n[ C ] Toggle camera follow\n[ P ] Pause or resume game\n[ R ] Reset game\n\nMobile controls aren't supported yet");
 }
 
 function timerTick () {
