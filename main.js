@@ -121,9 +121,16 @@ function onKeyDown (e) {
 }
 
 function onMouseDown (e) {
-	var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
-	var boundingRect = canvas.getBoundingClientRect();
-	var mousePosition = (new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top)).add(player.Position).subtract(playerPos);
+	var clientPos = new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top);
+	var mousePosition;
+	if (camera.Follow) {
+		var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
+		var boundingRect = canvas.getBoundingClientRect();
+		mousePosition = clientPos.add(player.Position).subtract(playerPos);
+	}
+	else {
+		mousePosition = clientPos.subtract(camera.Position);
+	}
 	
 	// Reset action
 	player.stop();
@@ -309,7 +316,8 @@ function timerTick () {
 	// Draw life beings
 	for (var i = lifeBeings.length - 1; i >= 0; i--) {
 		var life = lifeBeings[i];
-		drawLifeBeing(life.Image, playerPos.add(life.Position).subtract(player.Position), life.Rotation);
+		if (camera.Follow) drawLifeBeing(life.Image, playerPos.add(life.Position).subtract(player.Position), life.Rotation);
+		else drawLifeBeing(life.Image, life.Position.subtract(camera.Position), life.Rotation);
 	}
 	
 	// Draw hp bars
@@ -319,9 +327,19 @@ function timerTick () {
 		var point1 = new Vec2(life.Position.X, hpBarY);
 		var point2 = new Vec2(life.Position.X + life.Image.width, hpBarY);
 		var point3 = new Vec2(life.Position.X + life.Image.width * life.CurHealth / life.MaxHealth, hpBarY);
-		var projected1 = playerPos.add(point1).subtract(player.Position);
-		var projected2 = playerPos.add(point2).subtract(player.Position);
-		var projected3 = playerPos.add(point3).subtract(player.Position);
+		var projected1;
+		var projected2;
+		var projected3;
+		if (camera.Follow) {
+			projected1 = playerPos.add(point1).subtract(player.Position);
+			projected2 = playerPos.add(point2).subtract(player.Position);
+			projected3 = playerPos.add(point3).subtract(player.Position);
+		}
+		else {
+			projected1 = point1.subtract(camera.Position);
+			projected2 = point2.subtract(camera.Position);
+			projected3 = point3.subtract(camera.Position);
+		}
 		for (var j = 0; j < hpBarHeight; j++) {
 			drawLine(projected1.X, projected1.Y + j, projected2.X, projected2.Y + j);
 			drawLine(projected1.X, projected1.Y + j, projected3.X, projected3.Y + j, hpBarColor[life.Party]);
@@ -329,8 +347,11 @@ function timerTick () {
 	}
 	
 	// Draw projectiles
-	for (var i = 0; i < projectiles.length; i++) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
-	
+	for (var i = 0; i < projectiles.length; i++) {
+		if (camera.Follow) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
+		else drawLifeBeing(projectiles[i].Image, projectiles[i].Position.subtract(camera.Position), projectiles[i].Rotation);
+	}
+
 	// Draw game state messages
 	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, "center");
 	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, "center");
