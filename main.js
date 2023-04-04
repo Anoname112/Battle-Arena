@@ -84,7 +84,7 @@ function initGame () {
 	lifeBeings.push(tower1);
 	
 	genMinionWave();
-	
+
 	gState = 1;
 	camera = new Camera (true, new Vec2.Zero);
 }
@@ -102,6 +102,7 @@ function onKeyDown (e) {
 			canvas.style.cursor = (canvas.style.cursor == canvasCursor) ? canvasCursorAttack : canvasCursor;
 			break;
 		case 67:	// C
+			camera.Follow = !camera.Follow;
 			break;
 		case 80:	// P
 			if (gState == 0) resume();
