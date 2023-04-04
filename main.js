@@ -374,11 +374,11 @@ function timerTick () {
 		if (camera.Follow) drawLifeBeing(projectiles[i].Image, playerPos.add(projectiles[i].Position).subtract(player.Position), projectiles[i].Rotation);
 		else drawLifeBeing(projectiles[i].Image, projectiles[i].Position.subtract(camera.Position), projectiles[i].Rotation);
 	}
-
+	
 	// Draw game state messages
-	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, "center");
-	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, "center");
-	else if (gState == 3) drawMessage("YOU LOSE", msgPos.X, msgPos.Y, "center");
-
+	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
+	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
+	else if (gState == 3) drawMessage("YOU LOSE", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
+	
 	requestAnimationFrame(timerTick);
 }
