@@ -121,11 +121,18 @@ function drawRect (x, y, w, h, s) {
 	ctx.stroke();
 }
 
-function drawMessage (msg, x, y, align) {
+function drawMessage (msg, x, y, w, h, align) {
+	ctx.strokeStyle = msgBackColor;
+	ctx.fillStyle = msgBackColor;
+	ctx.beginPath();
+	ctx.roundRect(x - (w / 2) - msgBackPadding, y - (h / 2) - msgBackPadding, w + (msgBackPadding * 2), h  + (msgBackPadding * 2), msgBackRadius);
+	ctx.stroke();
+	ctx.fill();
+
 	ctx.textAlign = (align == null) ? "start" : align;
 	ctx.font = msgFont;
 	ctx.fillStyle = msgFontColor;
-	ctx.fillText(msg, x, y + 12);
+	ctx.fillText(msg, x, y + msgFontSize);
 	ctx.textAlign = "start";
 }
 
