@@ -23,7 +23,6 @@ const msgBackRadius = 5;
 const msgBackColor = "#222222";
 
 const interval = 15;
-const cameraSpeed = 20;
 const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
 const mapHeight = 726;
@@ -34,6 +33,9 @@ const hpBarColor = {
 	0: "#00FF00",
 	1: "#FF0000"
 };
+const cameraSpeed = 20;
+const heartAnimSpeed = 0.3;
+const heartAnimMax = 3;
 
 // Image
 const images = [];
