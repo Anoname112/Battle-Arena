@@ -16,6 +16,8 @@ function Heart (image, position, animSpeed, animMax) {
 	this.Position = position;
 	this.AnimSpeed = (animSpeed == null) ? heartAnimSpeed : animSpeed;
 	this.AnimMax = (animMax == null) ? heartAnimMax : animMax;
+	this.AnimStep = 0;
+	this.AnimDirection = 1;
 }
 
 function LifeBeing (health, attack, range, attackDelay, missileSpeed, missileImage, sightRange, speed, stepCounter, walkImages, attackImages, party, position, rotation) {
