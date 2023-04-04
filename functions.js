@@ -138,7 +138,7 @@ function drawMessage (msg, x, y, w, h, align) {
 	ctx.textAlign = (align == null) ? "start" : align;
 	ctx.font = msgFont;
 	ctx.fillStyle = msgFontColor;
-	ctx.fillText(msg, x, y + msgFontSize);
+	ctx.fillText(msg, x, y);
 	ctx.textAlign = "start";
 }
 
