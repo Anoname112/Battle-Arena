@@ -18,6 +18,9 @@ const msgY = 15;
 const msgFontColor = "#FFFFFF";
 const msgFontSize = 13;
 const msgFont = msgFontSize + "px Consolas";
+const msgBackPadding = 5;
+const msgBackRadius = 5;
+const msgBackColor = "#222222";
 
 const cameraSpeed = 20;
 const upVec2 = new Vec2(0, -1);
