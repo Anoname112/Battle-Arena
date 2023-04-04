@@ -4,7 +4,8 @@ function Background (image, position, z) {
 	this.Z = (z == null) ? backgroundZIndex : z;
 }
 
-function Camera (position, z, speed) {
+function Camera (follow, position, z, speed) {
+	this.Follow = follow;
 	this.Position = position;
 	this.Z = (z == null) ? 1 : z;
 	this.Speed = (speed == null) ? cameraSpeed : speed;

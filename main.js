@@ -119,7 +119,6 @@ function onKeyDown (e) {
 }
 
 function onMouseDown (e) {
-	e.preventDefault();
 	var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
 	var boundingRect = canvas.getBoundingClientRect();
 	var mousePosition = (new Vec2(e.clientX - boundingRect.left, e.clientY - boundingRect.top)).add(player.Position).subtract(playerPos);
@@ -153,7 +152,7 @@ function onMouseDown (e) {
 }
 
 function onMouseUp (e) {
-	e.preventDefault();
+
 }
 
 function timerTick () {
