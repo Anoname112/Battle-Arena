@@ -11,6 +11,7 @@ var bgm;
 var gState;
 var minionSpawnTick;
 var camera;
+var intervalId;
 
 var player;
 var tower0;
@@ -32,7 +33,7 @@ window.onload = function () {
 		for (var i = 0; i < images.length; i++) {
 			if (!images[i].complete) contentLoaded = false;
 		}
-		if (contentLoaded) requestAnimationFrame(timerTick);
+		if (contentLoaded) intervalId = setInterval(timerTick, interval);
 	}
 }
 
@@ -379,6 +380,4 @@ function timerTick () {
 	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
 	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
 	else if (gState == 3) drawMessage("YOU LOSE", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
-	
-	requestAnimationFrame(timerTick);
 }
