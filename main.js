@@ -21,8 +21,6 @@ var projectiles;
 window.onload = function () {
 	window.oncontextmenu = onContextMenu;
 	window.onresize = updateCanvasLocation;
-	window.onmousedown = onMouseDown;
-	window.onmouseup = onMouseUp;
 	window.onkeydown = onKeyDown;
 	
 	initDocument();
@@ -47,6 +45,8 @@ function initDocument () {
 	
 	// Prepare canvas
 	canvas = getElement("myCanvas");
+	canvas.onmousedown = onMouseDown;
+	canvas.onmouseup = onMouseUp;
 	canvas.style.position = canvasPosition;
 	canvas.style.borderRadius = canvasBorderRadius;
 	canvas.style.background = canvasBackColor;
