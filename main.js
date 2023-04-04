@@ -128,7 +128,7 @@ function onMouseDown (e) {
 		var playerPos = new Vec2((canvas.width - player.Image.width) / 2, (canvas.height - player.Image.height) / 2);
 		mousePosition = clientPos.add(player.Position).subtract(playerPos);
 	}
-	else mousePosition = clientPos.subtract(camera.Position);
+	else mousePosition = (new Vec2(e.clientX, e.clientY)).subtract(camera.Position);
 
 	// Reset action
 	player.stop();
