@@ -175,11 +175,11 @@ function onMouseUp (e) {
 }
 
 function infoTouchStart (e) {
-	
+	alert("Controls:\n[A] Walk and find target\n[S] Stop player\n[C] Toggle camera\n[P] Pause or resume game\n[R] Reset game");
 }
 
 function infoTouchEnd (e) {
-	alert("Controls:\n- A: Walk and find target\n- S: Stop player\n- C: Toggle camera\n- P: Pause or resume game\n- R: Reset game");
+	
 }
 
 function timerTick () {
