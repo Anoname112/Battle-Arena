@@ -62,6 +62,7 @@ function initDocument () {
 	infoSvg.addEventListener("touchend", infoTouchEnd, false);
 	infoSvg.onmousedown = infoTouchStart;
 	infoSvg.onmouseup = infoTouchEnd;
+	infoSvg.onclick = infoClick;
 	infoSvg.style.position = "fixed";
 	infoSvg.style.top = controlPadding;
 	infoSvg.style.right = controlPadding;
@@ -175,11 +176,15 @@ function onMouseUp (e) {
 }
 
 function infoTouchStart (e) {
-	alert("Controls:\n[A] Walk and find target\n[S] Stop player\n[C] Toggle camera\n[P] Pause or resume game\n[R] Reset game");
+	
 }
 
 function infoTouchEnd (e) {
 	
+}
+
+function infoClick (e) {
+	alert("Controls:\n[ A ] Walk and find target\n[ S ] Stop player\n[ C ] Toggle camera\n[ P ] Pause or resume game\n[ R ] Reset game");
 }
 
 function timerTick () {
