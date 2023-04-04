@@ -84,9 +84,9 @@ function initGame () {
 	lifeBeings.push(tower1);
 	
 	genMinionWave();
-
-	gState = 1;
+	
 	camera = new Camera (true, new Vec2.Zero);
+	gState = 1;
 }
 
 function onContextMenu (e) {
