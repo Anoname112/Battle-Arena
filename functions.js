@@ -122,13 +122,19 @@ function drawRect (x, y, w, h, s) {
 }
 
 function drawMessage (msg, x, y, w, h, align) {
+	var backX = x - (w / 2) - msgBackPadding;
+	var backY = y - (h / 2) - msgBackPadding;
+	var backW = w + (msgBackPadding * 2);
+	var backH = h + (msgBackPadding * 2);
+	
 	ctx.strokeStyle = msgBackColor;
 	ctx.fillStyle = msgBackColor;
 	ctx.beginPath();
-	ctx.roundRect(x - (w / 2) - msgBackPadding, y - (h / 2) - msgBackPadding, w + (msgBackPadding * 2), h  + (msgBackPadding * 2), msgBackRadius);
+	ctx.roundRect(backX, backY, backW, backH, msgBackRadius);
 	ctx.stroke();
 	ctx.fill();
-
+	
+	ctx.textBaseline = "middle";
 	ctx.textAlign = (align == null) ? "start" : align;
 	ctx.font = msgFont;
 	ctx.fillStyle = msgFontColor;
