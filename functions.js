@@ -2,52 +2,6 @@ function getElement (id) {
 	return document.getElementById(id);
 }
 
-function genMinionWave () {
-	var zombieX = (mapWidth - whiteZombieImg.width) / 2;
-	
-	// Party0
-	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX, mapHeight - mapHeight / 8 - whiteZombieImg.height), 0));
-	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX + mapWidth / 20, mapHeight - mapHeight / 7 - whiteZombieImg.height), 0));
-	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX - mapWidth / 20, mapHeight - mapHeight / 7 - whiteZombieImg.height), 0));
-	
-	// Party1
-	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX, mapHeight / 8), 180));
-	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX - mapWidth / 20, mapHeight / 7), 180));
-	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX + mapWidth / 20, mapHeight / 7), 180));
-	
-	for (var i = 0; i < lifeBeings.length; i++) {
-		var life = lifeBeings[i];
-		if (life.Party == 0 && life != player) {
-			life.FindTarget = true;
-			life.WalkTo = getCenter(tower1);
-		}
-		else if (life.Party == 1) {
-			life.FindTarget = true;
-			life.WalkTo = getCenter(tower0);
-		}
-	}
-	
-	minionSpawnTick = minionSpawnTime;
-}
-
-function updateImage (life) {
-	var index = (life.CurStep / (life.MaxStep / life.WalkImages.length)) >> 0;
-	index = clamp(index, 0, life.WalkImages.length - 1);
-	life.Image = life.WalkImages[index];
-	if (life.Target) {
-		var lifeCenter = getCenter(life);
-		var targetCenter = getCenter(life.Target);
-		var distance = targetCenter.subtract(lifeCenter);
-		var distanceLen = distance.length();
-		
-		if (distanceLen <= life.Range) {
-			var index = (life.CurAttackDelay / (life.MaxAttackDelay / life.AttackImages.length)) >> 0;
-			index = clamp(index, 0, life.AttackImages.length - 1);
-			life.Image = life.AttackImages[index];
-		}
-	}
-}
-
 function updateCanvasLocation () {
 	canvas.style.left = (window.innerWidth - canvas.width) / 2;
 	canvas.style.top = (window.innerHeight - canvas.height) / 2;
@@ -178,4 +132,50 @@ function rotate (point, center, degree) {
 	var x = center.X + (point.X - center.X) * cos - (point.Y - center.Y) * sin;
 	var y = center.Y + (point.X - center.X) * sin + (point.Y - center.Y) * cos;
 	return new Vec2(x, y);
+}
+
+function genMinionWave () {
+	var zombieX = (mapWidth - whiteZombieImg.width) / 2;
+	
+	// Party0
+	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX, mapHeight - mapHeight / 8 - whiteZombieImg.height), 0));
+	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX + mapWidth / 20, mapHeight - mapHeight / 7 - whiteZombieImg.height), 0));
+	lifeBeings.push(new LifeBeing.WhiteZombie(0, new Vec2(zombieX - mapWidth / 20, mapHeight - mapHeight / 7 - whiteZombieImg.height), 0));
+	
+	// Party1
+	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX, mapHeight / 8), 180));
+	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX - mapWidth / 20, mapHeight / 7), 180));
+	lifeBeings.push(new LifeBeing.WhiteZombie(1, new Vec2(zombieX + mapWidth / 20, mapHeight / 7), 180));
+	
+	for (var i = 0; i < lifeBeings.length; i++) {
+		var life = lifeBeings[i];
+		if (life.Party == 0 && life != player) {
+			life.FindTarget = true;
+			life.WalkTo = getCenter(tower1);
+		}
+		else if (life.Party == 1) {
+			life.FindTarget = true;
+			life.WalkTo = getCenter(tower0);
+		}
+	}
+	
+	minionSpawnTick = minionSpawnTime;
+}
+
+function updateImage (life) {
+	var index = (life.CurStep / (life.MaxStep / life.WalkImages.length)) >> 0;
+	index = clamp(index, 0, life.WalkImages.length - 1);
+	life.Image = life.WalkImages[index];
+	if (life.Target) {
+		var lifeCenter = getCenter(life);
+		var targetCenter = getCenter(life.Target);
+		var distance = targetCenter.subtract(lifeCenter);
+		var distanceLen = distance.length();
+		
+		if (distanceLen <= life.Range) {
+			var index = (life.CurAttackDelay / (life.MaxAttackDelay / life.AttackImages.length)) >> 0;
+			index = clamp(index, 0, life.AttackImages.length - 1);
+			life.Image = life.AttackImages[index];
+		}
+	}
 }
