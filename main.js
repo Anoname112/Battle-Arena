@@ -4,7 +4,7 @@ var infoSvg;
 var hidden;
 var bgm;
 
-var gState;		// 0. Paused, 1. Playing, 2. Win, 3. Lose
+var gState;		// 0: Paused, 1: Playing, 2: Win, 3: Lose
 var minionSpawnTick;
 var camera;
 var intervalId;
