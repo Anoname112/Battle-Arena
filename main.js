@@ -20,7 +20,7 @@ window.onload = function () {
 	window.onresize = updateCanvasLocation;
 	window.onkeydown = onKeyDown;
 	window.onblur = function () {
-		if (gState < 2) pause();
+		//if (gState < 2) pause();
 	};
 	
 	initDocument();
