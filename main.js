@@ -66,8 +66,8 @@ function initDocument () {
 	infoSvg.style.position = "fixed";
 	infoSvg.style.top = controlPadding;
 	infoSvg.style.right = controlPadding;
-	infoSvg.children[0].style.width = controlSize;
-	infoSvg.children[0].style.height = controlSize;
+	infoSvg.style.width = controlSize;
+	infoSvg.style.height = controlSize;
 	
 	// Prepare hidden area
 	hidden = getElement("hidden");
