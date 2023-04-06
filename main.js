@@ -19,6 +19,9 @@ window.onload = function () {
 	window.oncontextmenu = onContextMenu;
 	window.onresize = updateCanvasLocation;
 	window.onkeydown = onKeyDown;
+	window.onblur = function () {
+		if (gState < 2) pause();
+	};
 	
 	initDocument();
 	initGame();
@@ -102,8 +105,6 @@ function initGame () {
 
 function onContextMenu (e) {
 	e.preventDefault();
-	
-	// DO SOMETHING HERE
 }
 
 function onKeyDown (e) {
