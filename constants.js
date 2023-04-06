@@ -5,16 +5,7 @@ const interval = 15;
 const upVec2 = new Vec2(0, -1);
 const mapWidth = 1455;
 const mapHeight = 726;
-const cameraSpeed = 20;
 const minionSpawnTime = 600;
-const heartAnimSpeed = 0.3;
-const heartAnimMax = 3;
-const hpBarHeight = 2;
-const hpBarDistance = 10;
-const hpBarColor = {
-	0: "#00FF00",
-	1: "#FF0000"
-};
 
 // Body
 const bodyMargin = "0";
@@ -45,6 +36,21 @@ const controlSize = 55;
 
 // Sound
 const audioVisibility = "hidden";
+
+// Camera
+const cameraSpeed = 20;
+
+// Heart
+const heartAnimSpeed = 0.3;
+const heartAnimMax = 3;
+
+// HP bar
+const hpBarHeight = 2;
+const hpBarDistance = 10;
+const hpBarColor = {
+	0: "#00FF00",
+	1: "#FF0000"
+};
 
 // Image
 const images = [];
