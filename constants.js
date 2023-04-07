@@ -28,6 +28,7 @@ const msgFontSize = 13;
 const msgFont = msgFontSize + "px Consolas";
 const msgBackPadding = 5;
 const msgBackRadius = 5;
+const msgBackWidth = 100;
 const msgBackColor = "#222222";
 
 // Control
