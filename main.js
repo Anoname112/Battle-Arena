@@ -374,7 +374,7 @@ function timerTick () {
 	}
 	
 	// Draw game state messages
-	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
-	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
-	else if (gState == 3) drawMessage("YOU LOSE", msgPos.X, msgPos.Y, 100, msgFontSize, "center");
+	if (gState == 0) drawMessage("PAUSED", msgPos.X, msgPos.Y, msgBackWidth, msgFontSize, "center");
+	else if (gState == 2) drawMessage("YOU WIN", msgPos.X, msgPos.Y, msgBackWidth, msgFontSize, "center");
+	else if (gState == 3) drawMessage("YOU LOSE", msgPos.X, msgPos.Y, msgBackWidth, msgFontSize, "center");
 }
